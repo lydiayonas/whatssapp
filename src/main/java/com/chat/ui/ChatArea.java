@@ -248,55 +248,42 @@ public class ChatArea extends VBox {
     }
 
     private HBox createChatHeader() {
-        HBox chatHeader = new HBox(12);
+        HBox chatHeader = new HBox(10);
         chatHeader.getStyleClass().add("chat-header");
         chatHeader.setAlignment(Pos.CENTER_LEFT);
-        chatHeader.setPadding(new Insets(12, 16, 12, 16));
 
-        chatHeaderAvatar = new ImageView();
-        chatHeaderAvatar.setFitWidth(40);
-        chatHeaderAvatar.setFitHeight(40);
-        chatHeaderAvatar.getStyleClass().add("chat-header-avatar");
+        // Current chat avatar
+        ImageView chatAvatar = new ImageView(new Image(getClass().getResourceAsStream("/com/chat/ui/avatar_placeholder.png")));
+        chatAvatar.setFitWidth(40);
+        chatAvatar.setFitHeight(40);
+        chatAvatar.getStyleClass().add("chat-header-avatar");
 
-        chatHeaderInfoBox = new VBox(2);
-        chatHeaderInfoBox.getStyleClass().add("chat-header-info");
-        chatHeaderName = new Label();
-        chatHeaderName.getStyleClass().add("chat-name");
-        chatHeaderStatus = new Label();
-        chatHeaderStatus.getStyleClass().add("chat-status");
-        chatHeaderInfoBox.getChildren().addAll(chatHeaderName, chatHeaderStatus);
+        // Chat name and status
+        VBox chatInfo = new VBox(2);
+        chatInfo.getStyleClass().add("chat-header-info-box");
+        chatHeaderName = new Label("Select a Chat");
+        chatHeaderName.getStyleClass().add("chat-header-name");
+        chatHeaderStatus = new Label("Online");
+        chatHeaderStatus.getStyleClass().add("chat-header-status");
+        chatInfo.getChildren().addAll(chatHeaderName, chatHeaderStatus);
 
-        Region spacer = new Region(); // Add a spacer to push actions to the right
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-
-        chatHeaderActions = new HBox(8);
-        chatHeaderActions.getStyleClass().add("chat-header-actions");
-        chatHeaderActions.setAlignment(Pos.CENTER_RIGHT);
+        chatHeader.getChildren().addAll(chatAvatar, chatInfo);
+        HBox.setHgrow(chatInfo, Priority.ALWAYS);
 
         // Search button
-        Button searchButton = new Button("🔍");
-        searchButton.getStyleClass().addAll("header-button", "large-icon-button"); // Added 'large-icon-button'
-        searchButton.setOnAction(e -> showSearchBar());
+        Button searchButton = new Button();
+        ImageView searchIcon = new ImageView(new Image(getClass().getResourceAsStream("/com/chat/ui/search_icon.svg")));
+        searchIcon.setFitWidth(20);
+        searchIcon.setFitHeight(20);
+        searchButton.setGraphic(searchIcon);
+        searchButton.getStyleClass().add("icon-button");
+        searchButton.setOnAction(e -> {
+            // Implement search functionality
+            System.out.println("Search button clicked!");
+        });
 
-        // More options button with context menu
-        Button moreButton = new Button("⋯");
-        moreButton.getStyleClass().addAll("header-button", "large-icon-button"); // Added 'large-icon-button'
-        ContextMenu headerMenu = new ContextMenu();
+        chatHeader.getChildren().add(searchButton);
 
-        MenuItem searchMenuItem = new MenuItem("Search");
-        searchMenuItem.setOnAction(e -> showSearchBar());
-
-        MenuItem clearHistoryItem = new MenuItem("Clear History");
-        clearHistoryItem.setOnAction(e -> clearCurrentChatHistory());
-
-        MenuItem deleteChatItem = new MenuItem("Delete chat");
-        deleteChatItem.setOnAction(e -> deleteCurrentChat());
-
-        headerMenu.getItems().addAll(searchMenuItem, clearHistoryItem, deleteChatItem);
-        moreButton.setOnMouseClicked(e -> headerMenu.show(moreButton, e.getScreenX(), e.getScreenY()));
-
-        chatHeaderActions.getChildren().addAll(searchButton, moreButton);
-        chatHeader.getChildren().addAll(chatHeaderAvatar, chatHeaderInfoBox, spacer, chatHeaderActions); // Added spacer
         return chatHeader;
     }
 
@@ -306,59 +293,40 @@ public class ChatArea extends VBox {
         inputArea.setAlignment(Pos.CENTER);
         inputArea.setPadding(new Insets(8));
 
-        // Message input field with integrated attachment icon
-        StackPane messageInputContainer = new StackPane();
-        messageInputContainer.getStyleClass().add("message-input-container");
-        HBox.setHgrow(messageInputContainer, Priority.ALWAYS);
-
+        // Message input field
         messageInput = new TextField();
-        messageInput.setPromptText("Message");
+        messageInput.setPromptText("Type a message");
         messageInput.getStyleClass().add("message-input");
-        // Adjust padding to make space for the attachment icon
-        messageInput.setPadding(new Insets(10, 10, 10, 40)); // Top, Right, Bottom, Left
+        HBox.setHgrow(messageInput, Priority.ALWAYS);
 
-        ImageView attachmentIcon = new ImageView(new Image(getClass().getResourceAsStream("/com/chat/ui/attachment_icon.png"))); // Corrected path
+        // Attachment icon
+        ImageView attachmentIcon = new ImageView(new Image(getClass().getResourceAsStream("/com/chat/ui/attachment_icon.png")));
         attachmentIcon.setFitWidth(20);
         attachmentIcon.setFitHeight(20);
-        attachmentIcon.getStyleClass().add("attachment-icon");
-        StackPane.setAlignment(attachmentIcon, Pos.CENTER_LEFT);
-        StackPane.setMargin(attachmentIcon, new Insets(0, 0, 0, 10)); // Margin for icon
-        // Add click handler to the icon itself
         attachmentIcon.setOnMouseClicked(e -> showFileChooser());
+        attachmentIcon.getStyleClass().add("attachment-icon-button"); // For styling if needed
 
-        messageInputContainer.getChildren().addAll(messageInput, attachmentIcon);
-
-        // Send button
-        sendButton = new Button("➤");
+        // Send and Voice button - dynamically switch
+        sendButton = new Button("➤"); // Unicode for send icon
         sendButton.getStyleClass().add("send-button");
-        sendButton.setOnAction(e -> sendMessage());
+        sendButton.setManaged(false); // Initially hidden
+        sendButton.setVisible(false);
+        sendButton.setOnAction(e -> sendMessage()); // Add action for send button
 
-        // StackPane to toggle between voice controls and send button
-        StackPane rightMostButtonStack = new StackPane();
-        // voiceControls is initialized in setupVoiceRecording()
-        rightMostButtonStack.getChildren().addAll(voiceControls, sendButton);
-        StackPane.setAlignment(voiceControls, Pos.CENTER);
-        StackPane.setAlignment(sendButton, Pos.CENTER);
-
-        // Listen to text changes to toggle visibility of send/voice buttons
+        // Listener to switch between voice and send button
         messageInput.textProperty().addListener((obs, oldText, newText) -> {
             boolean hasText = newText != null && !newText.trim().isEmpty();
-            sendButton.setVisible(hasText);
             sendButton.setManaged(hasText);
-            voiceControls.setVisible(!hasText); // Show voice if no text
-            voiceControls.setManaged(!hasText); // Manage voice if no text
+            sendButton.setVisible(hasText);
+            voiceControls.setManaged(!hasText);
+            voiceControls.setVisible(!hasText);
         });
 
-        // Initial state: if messageInput is empty, show voiceControls, hide sendButton
-        voiceControls.setVisible(true);
+        // Ensure voice button is visible initially if no text
         voiceControls.setManaged(true);
-        sendButton.setVisible(false);
-        sendButton.setManaged(false);
+        voiceControls.setVisible(true);
 
-        // Arrange components in the input area
-        inputArea.getChildren().clear(); // Clear existing children to re-add in desired order
-        inputArea.getChildren().addAll(messageInputContainer, rightMostButtonStack);
-
+        inputArea.getChildren().addAll(attachmentIcon, messageInput, voiceControls, sendButton);
         return inputArea;
     }
 

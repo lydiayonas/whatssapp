@@ -1,13 +1,13 @@
 /* WhatsApp Light Mode Color Scheme */
 * {
-    -fx-primary: #25D366; /* WhatsApp Green */
-    -fx-secondary: #128C7E; /* Darker Green */
-    -fx-dark-bg: #f0f2f5; /* Light background */
+    -fx-primary: #075E54; /* WhatsApp Green */
+    -fx-secondary: #075E54; /* Darker Green - same as primary for consistency with image */
+    -fx-dark-bg: #E0E0D1; /* Light background - changed to soft green */
     -fx-sidebar-bg: #ffffff; /* White sidebar */
     -fx-sidebar-nav-bg: #ffffff;
     -fx-sidebar-nav-hover: #f0f2f5; /* Light grey hover */
     -fx-sidebar-nav-selected: #e9ebeb; /* Slightly darker grey selected */
-    -fx-chat-bg: #e5ddd5; /* Chat area background */
+    -fx-chat-bg: #E0E0D1; /* Chat area background - very light subtle green/grey */
     -fx-chat-header-bg: #f0f2f5; /* Chat header background */
     -fx-chat-bubble-in: #ffffff; /* White incoming bubble */
     -fx-chat-bubble-out: #dcf8c6; /* Light green outgoing bubble */
@@ -171,7 +171,7 @@
 }
 
 .chat-list-item-selected {
-    -fx-background-color: derive(-fx-primary, 85%); /* Light blue selected */
+    -fx-background-color: #e9ebeb; /* Light grey selected chat item */
 }
 
 /* Styling for group chat items */
@@ -188,7 +188,7 @@
 }
 
 .group-chat-item.chat-list-item-selected {
-     -fx-background-color: derive(-fx-primary, 85%); /* Keep light blue for selected, overriding group background */
+     -fx-background-color: #e9ebeb; /* Keep light grey for selected, overriding group background */
 }
 
 .chat-list-avatar {
@@ -234,7 +234,7 @@
 
 /* Chat Area styling */
 .chat-area {
-    -fx-background-color: #E1EDE5; /* Light green/grey background */
+    -fx-background-color: -fx-chat-bg; /* Light green/grey background */
     -fx-padding: 0;
     /* TODO: Add background image pattern here for a more authentic look */
 }
@@ -340,56 +340,53 @@
 
 /* Message Bubble Styling */
 .message-bubble {
-    -fx-padding: 2 0;
-}
-
-.message-box {
-    -fx-max-width: 70%;
-    /* Align message box within the bubble based on sender */
+    -fx-background-color: -fx-chat-bubble-in; /* Default to incoming bubble color */
+    -fx-background-radius: 8; /* Smaller radius for a more modern look */
+    -fx-padding: 8 12; /* Adjust padding */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 3, 0, 0, 1); /* Subtle shadow */
+    -fx-max-width: 350px; /* Constrain max width of bubbles */
+    -fx-min-width: 50px;
 }
 
 .incoming .message-box {
-    -fx-alignment: TOP_LEFT;
-    -fx-padding: 0 0 0 8px; /* Space for avatar */
+    -fx-alignment: BASELINE_LEFT;
+}
+
+.incoming .message-bubble {
+    -fx-background-color: -fx-chat-bubble-in; /* White for incoming */
+    -fx-background-radius: 8 8 8 8; /* Uniformly rounded corners */
+    -fx-border-color: #f0f0f0; /* Very subtle border */
+    -fx-border-width: 1;
 }
 
 .outgoing .message-box {
-    -fx-alignment: TOP_RIGHT;
-    -fx-padding: 0 8px 0 0; /* Space on the right */
+    -fx-alignment: BASELINE_RIGHT;
 }
 
-.bubble-content {
-    -fx-padding: 8 12 4 12; /* Adjust padding, more space at bottom for meta */
-    -fx-background-radius: 18; /* More rounded corners */
+.outgoing .message-bubble {
+    -fx-background-color: -fx-chat-bubble-out; /* Light green for outgoing */
+    -fx-background-radius: 8 8 8 8; /* Uniformly rounded corners */
 }
 
-.incoming .bubble-content {
-    -fx-background-color: white;
-    -fx-background-radius: 18 18 18 6; /* Rounded corners, sharp bottom-left */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2); /* Subtle shadow */
-}
-
-.outgoing .bubble-content {
-    -fx-background-color: #E1FFC7; /* Light green/blue for outgoing */
-    -fx-background-radius: 18 18 6 18; /* Rounded corners, sharp bottom-right */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2); /* Subtle shadow */
+/* Ensure text wraps within bubble */
+.bubble-text-flow {
+    -fx-pref-width: Region.USE_COMPUTED_SIZE;
+    -fx-min-width: Region.USE_PREF_SIZE;
+    -fx-max-width: 330; /* Slightly less than bubble max-width */
 }
 
 .bubble-text {
-    -fx-text-fill: -fx-chat-bubble-in-text;
+    -fx-fill: -fx-text-color;
     -fx-font-size: 14px;
-    -fx-fill: -fx-text-color; /* Use -fx-fill for Text nodes */
     -fx-font-weight: normal;
 }
 
 .outgoing .bubble-text {
-    -fx-text-fill: -fx-chat-bubble-out-text;
-    -fx-fill: -fx-text-color;
+    -fx-fill: -fx-chat-bubble-out-text;
 }
 
 .bubble-emoji {
-     -fx-font-size: 28px;
-     -fx-fill: black; /* Emoji color */
+    -fx-font-size: 24px;
 }
 
 .bubble-avatar {
@@ -405,24 +402,21 @@
 }
 
 .message-timestamp {
-    -fx-text-fill: -fx-grey-color;
     -fx-font-size: 10px;
-    -fx-padding: 0;
-    -fx-translate-y: 1px; /* Fine tune alignment with read receipt */
+    -fx-text-fill: #999999; /* Lighter grey for timestamp */
 }
 
 .read-receipt {
-    -fx-text-fill: derive(-fx-grey-color, 20%); /* Lighter grey for read receipt */
-    -fx-font-size: 10px; /* Smaller font size */
-    -fx-padding: 0;
+    -fx-font-size: 10px;
+    -fx-text-fill: #999999; /* Lighter grey for read receipt */
 }
 
 .read-receipt.sent {
-    -fx-text-fill: -fx-grey-color;
+    -fx-fill: #999999; /* Grey for sent/delivered */
 }
 
 .read-receipt.read {
-    -fx-text-fill: #4FC3F7; /* Light blue for read checkmarks */
+    -fx-fill: -fx-primary; /* Green for read */
 }
 
 .bubble-forwarded-from {

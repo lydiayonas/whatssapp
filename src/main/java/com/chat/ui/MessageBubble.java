@@ -194,6 +194,55 @@ public class MessageBubble extends HBox {
                     fileInfo.getChildren().addAll(fileNameLabel, fileSizeLabel);
                     fileDisplay.getChildren().addAll(fileIcon, fileInfo);
                     bubbleContent.getChildren().add(fileDisplay);
+
+                    // Add Open and Save as... buttons for files
+                    HBox fileActions = new HBox(8);
+                    fileActions.setAlignment(Pos.CENTER_LEFT);
+                    fileActions.getStyleClass().add("file-actions");
+
+                    Button openButton = new Button("Open");
+                    openButton.getStyleClass().add("file-action-button");
+                    openButton.setOnAction(e -> {
+                        // In a real application, you'd open the file with the default system application
+                        // For now, we'll just print a message.
+                        System.out.println("Attempting to open file: " + content);
+                        // You might save it to a temp file and then open it
+                        try {
+                            File tempFile = File.createTempFile("whatsapp_temp_", "." + fileType);
+                            try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+                                fos.write(fileContent);
+                            }
+                            // For desktop applications, use Desktop API to open
+                            if (java.awt.Desktop.isDesktopSupported()) {
+                                java.awt.Desktop.getDesktop().open(tempFile);
+                            } else {
+                                System.err.println("Desktop not supported, cannot open file.");
+                            }
+                        } catch (IOException ex) {
+                            System.err.println("Error opening file: " + ex.getMessage());
+                        }
+                    });
+
+                    Button saveAsButton = new Button("Save as...");
+                    saveAsButton.getStyleClass().add("file-action-button");
+                    saveAsButton.setOnAction(e -> {
+                        FileChooser fileChooser = new FileChooser();
+                        fileChooser.setTitle("Save File");
+                        fileChooser.setInitialFileName(content);
+                        File savedFile = fileChooser.showSaveDialog(null); // Pass primary stage if available
+                        if (savedFile != null) {
+                            try (FileOutputStream fos = new FileOutputStream(savedFile)) {
+                                fos.write(fileContent);
+                                System.out.println("File saved to: " + savedFile.getAbsolutePath());
+                            } catch (IOException ex) {
+                                System.err.println("Error saving file: " + ex.getMessage());
+                            }
+                        }
+                    });
+
+                    fileActions.getChildren().addAll(openButton, saveAsButton);
+                    bubbleContent.getChildren().add(fileActions);
+
                 } else {
                     TextFlow fallbackFlow = new TextFlow(new Text("File: " + content));
                     bubbleContent.getChildren().add(fallbackFlow);
