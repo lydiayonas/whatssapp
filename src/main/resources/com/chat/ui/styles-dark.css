@@ -1,0 +1,132 @@
+/* WhatsApp Dark Mode Color Scheme */
+* {
+    -fx-primary: #00a884; /* WhatsApp Green */
+    -fx-secondary: #008069; /* Darker Green */
+    -fx-dark-bg: #111b21; /* Dark background */
+    -fx-sidebar-bg: #202c33; /* Dark sidebar */
+    -fx-sidebar-nav-bg: #202c33;
+    -fx-sidebar-nav-hover: #2a3942; /* Darker hover */
+    -fx-sidebar-nav-selected: #2a3942; /* Selected item */
+    -fx-chat-bg: #0b141a; /* Chat area background */
+    -fx-chat-header-bg: #202c33; /* Chat header background */
+    -fx-chat-bubble-in: #202c33; /* Dark incoming bubble */
+    -fx-chat-bubble-out: #005c4b; /* Dark green outgoing bubble */
+    -fx-chat-bubble-out-text: #e9edef; /* Light text */
+    -fx-chat-bubble-in-text: #e9edef; /* Light text */
+    -fx-grey-color: #8696a0;
+    -fx-focus-color: -fx-primary;
+    -fx-text-color: #e9edef;
+    -fx-reply-bg: #2a3942;
+    -fx-file-preview-bg: #2a3942;
+    -fx-voice-preview-bg: #2a3942;
+    -fx-reaction-bg: #202c33;
+    -fx-date-separator-bg: #2a3942;
+}
+
+.root {
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: #e0e0e0;
+}
+
+.label {
+    -fx-text-fill: #e0e0e0;
+}
+
+.text-field, .password-field {
+    -fx-background-color: #2a2a2a;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #aaaaaa;
+    -fx-border-color: #3a3a3a;
+}
+
+.button {
+    -fx-background-color: #3a3a3a;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #4a4a4a;
+}
+
+.chat-bubble {
+    -fx-background-color: #2f2f2f;
+    -fx-text-fill: white;
+    -fx-background-radius: 15;
+    -fx-padding: 10;
+}
+
+.chat-bubble-sent {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
+}
+
+.chat-sidebar {
+    -fx-background-color: #252525;
+}
+
+.chat-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.chat-item:hover {
+    -fx-background-color: #333333;
+}
+
+.sidebar-topbar {
+    -fx-background-color: -fx-sidebar-bg;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: -fx-sidebar-nav-selected;
+    -fx-padding: 10 16;
+}
+
+.sidebar-avatar {
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-padding: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 1);
+}
+
+.sidebar-chats-title {
+    -fx-text-fill: -fx-text-color;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 8px;
+}
+
+.sidebar-search-container {
+    -fx-background-color: -fx-sidebar-bg;
+    -fx-padding: 8 16;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.search-box {
+    -fx-background-color: -fx-dark-bg;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 6 12;
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-color;
+    -fx-prompt-text-fill: -fx-grey-color;
+    -fx-border-width: 0;
+}
+
+.search-box:focused {
+    -fx-effect: dropshadow(gaussian, -fx-focus-color, 5, 0, 0, 0);
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+    -fx-font-size: 18px;
+    -fx-text-fill: -fx-grey-color;
+    -fx-background-radius: 50%;
+}
+
+.icon-button:hover {
+    -fx-background-color: -fx-sidebar-nav-hover;
+}
+
+.icon-button:pressed {
+    -fx-background-color: -fx-sidebar-nav-selected;
+}

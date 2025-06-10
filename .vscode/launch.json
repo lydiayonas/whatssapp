@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "mainClass": "com.chat.Main", // Full package path
+      "vmArgs": "--module-path lib --add-modules javafx.controls,javafx.fxml",
+      "name": "Launch JavaFX"
+    }
+  ]
+}

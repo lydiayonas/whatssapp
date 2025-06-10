@@ -1,0 +1,713 @@
+/* WhatsApp Light Mode Color Scheme */
+* {
+    -fx-primary: #25D366; /* WhatsApp Green */
+    -fx-secondary: #128C7E; /* Darker Green */
+    -fx-dark-bg: #f0f2f5; /* Light background */
+    -fx-sidebar-bg: #ffffff; /* White sidebar */
+    -fx-sidebar-nav-bg: #ffffff;
+    -fx-sidebar-nav-hover: #f0f2f5; /* Light grey hover */
+    -fx-sidebar-nav-selected: #e9ebeb; /* Slightly darker grey selected */
+    -fx-chat-bg: #e5ddd5; /* Chat area background */
+    -fx-chat-header-bg: #f0f2f5; /* Chat header background */
+    -fx-chat-bubble-in: #ffffff; /* White incoming bubble */
+    -fx-chat-bubble-out: #dcf8c6; /* Light green outgoing bubble */
+    -fx-chat-bubble-out-text: #303030; /* Dark text */
+    -fx-chat-bubble-in-text: #303030; /* Dark text */
+    -fx-grey-color: #667781;
+    -fx-focus-color: -fx-primary;
+    -fx-text-color: #303030;
+    -fx-reply-bg: #f0f2f5;
+    -fx-file-preview-bg: #f0f2f5;
+    -fx-voice-preview-bg: #f0f2f5;
+    -fx-reaction-bg: #ffffff;
+    -fx-date-separator-bg: #e9ebeb;
+}
+
+.root {
+    -fx-background-color: -fx-dark-bg;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Sidebar styling */
+.sidebar {
+    -fx-background-color: -fx-sidebar-bg;
+    -fx-pref-width: 260px;
+    -fx-min-width: 200px;
+    -fx-max-width: 300px;
+    -fx-border-color: -fx-grey-color;
+    -fx-border-width: 0 0 0 0; /* Remove sidebar right border */
+}
+
+.sidebar-topbar {
+    -fx-background-color: -fx-sidebar-bg;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: -fx-sidebar-nav-selected;
+    -fx-padding: 10 16;
+}
+
+.sidebar-avatar {
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-padding: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+
+.sidebar-chats-title {
+    -fx-text-fill: -fx-text-color;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 8px;
+}
+
+.sidebar-search-container {
+    -fx-background-color: -fx-sidebar-bg;
+    -fx-padding: 8 16;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.search-box {
+    -fx-background-color: -fx-dark-bg;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 6 12;
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-color;
+    -fx-prompt-text-fill: -fx-grey-color;
+    -fx-border-width: 0;
+}
+
+.search-box:focused {
+    -fx-effect: dropshadow(gaussian, -fx-focus-color, 5, 0, 0, 0);
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+    -fx-font-size: 18px;
+    -fx-text-fill: -fx-grey-color;
+    -fx-background-radius: 50%;
+}
+
+.icon-button:hover {
+    -fx-background-color: -fx-sidebar-nav-hover;
+}
+
+.icon-button:pressed {
+    -fx-background-color: -fx-sidebar-nav-selected;
+}
+
+.sidebar-topbar .icon-button {
+    -fx-text-fill: white; /* White icons in sidebar top bar */
+}
+
+.chat-header .icon-button,
+.input-area .icon-button {
+    -fx-text-fill: -fx-grey-color; /* Grey icons in chat header and input area */
+}
+
+.sidebar-profile-avatar {
+    -fx-shape: "M 20 0 A 20 20 0 0 1 20 40 A 20 20 0 0 1 20 0 Z";
+    -fx-background-color: white;
+}
+
+.sidebar-profile-name {
+    -fx-text-fill: -fx-text-color;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.sidebar-profile-status {
+    -fx-text-fill: -fx-grey-color;
+    -fx-font-size: 13px;
+}
+
+.sidebar-nav {
+    -fx-padding: 0 12;
+}
+
+.sidebar-nav-item {
+    -fx-padding: 8 12;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.sidebar-nav-item:hover {
+     -fx-background-color: -fx-sidebar-nav-hover;
+}
+
+.sidebar-nav-item.selected {
+    -fx-background-color: -fx-sidebar-nav-selected;
+}
+
+.sidebar-nav-icon {
+     -fx-font-size: 18px;
+}
+
+.sidebar-nav-counter {
+    -fx-background-color: -fx-primary;
+    -fx-background-radius: 12;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-padding: 2 6;
+}
+
+.sidebar-title {
+    -fx-text-fill: white; /* White WhatsApp title */
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* Chat List Styling */
+.chat-list-item {
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+    -fx-border-color: derive(-fx-sidebar-bg, -5%); /* Slightly darker line for separation */
+    -fx-border-width: 0 0 0.5px 0;
+}
+
+.chat-list-item:hover {
+     -fx-background-color: derive(-fx-sidebar-bg, -3%); /* Light grey hover */
+}
+
+.chat-list-item-selected {
+    -fx-background-color: derive(-fx-primary, 85%); /* Light blue selected */
+}
+
+/* Styling for group chat items */
+.group-chat-item {
+    -fx-background-color: #e0f7fa; /* Light cyan background for group chats */
+    -fx-border-color: derive(-fx-dark-bg, -5%); /* Slightly darker line for separation */
+    -fx-border-width: 0 0 0.5px 0;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.group-chat-item:hover {
+     -fx-background-color: derive(#e0f7fa, -5%); /* Slightly darker cyan hover */
+}
+
+.group-chat-item.chat-list-item-selected {
+     -fx-background-color: derive(-fx-primary, 85%); /* Keep light blue for selected, overriding group background */
+}
+
+.chat-list-avatar {
+    -fx-shape: "M 20 0 A 20 20 0 0 1 20 40 A 20 20 0 0 1 20 0 Z"; /* Adjust shape for 40x40 size */
+    -fx-background-color: #a0a0a0; /* Default grey background for avatars */
+    -fx-background-image: null; /* Ensure no default background image interferes */
+}
+
+.chat-list-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-color;
+}
+
+.chat-list-last-message {
+    -fx-font-size: 12px;
+    -fx-text-fill: -fx-grey-color;
+}
+
+.chat-list-time {
+    -fx-font-size: 11px;
+    -fx-text-fill: derive(-fx-grey-color, 20%); /* Slightly lighter grey for time */
+}
+
+.chat-list-unread {
+    -fx-background-color: #25D366; /* WhatsApp green */
+    -fx-background-radius: 12; /* Make it circular */
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-padding: 2 4; /* Adjust padding */
+    -fx-min-width: 18px; /* Adjust size */
+    -fx-min-height: 18px; /* Adjust size */
+    -fx-alignment: center;
+    -fx-translate-y: -2px; /* Adjust vertical position */
+    -fx-translate-x: 4px; /* Adjust horizontal position relative to time */
+}
+
+/* Styling for the HBox containing time and unread count */
+.chat-list-meta-box {
+    -fx-alignment: TOP_RIGHT;
+    -fx-spacing: 4;
+}
+
+/* Chat Area styling */
+.chat-area {
+    -fx-background-color: #E1EDE5; /* Light green/grey background */
+    -fx-padding: 0;
+    /* TODO: Add background image pattern here for a more authentic look */
+}
+
+.chat-header {
+    -fx-background-color: -fx-sidebar-bg; /* White background for chat header */
+    -fx-padding: 8 16; /* Adjust padding */
+    -fx-border-color: -fx-grey-color;
+    -fx-border-width: 0 0 1px 0;
+    -fx-spacing: 8;
+}
+
+.chat-header-name {
+    -fx-text-fill: -fx-text-color;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.chat-header-status {
+    -fx-text-fill: #4CAF50; /* Green for online status */
+    -fx-font-size: 11px;
+}
+
+.chat-header-avatar {
+    -fx-fit-width: 36px;
+    -fx-fit-height: 36px;
+    -fx-shape: "M 18 0 A 18 18 0 0 1 18 36 A 18 18 0 0 1 18 0 Z"; /* Circular shape */
+    -fx-background-color: #a0a0a0; /* Default grey background */
+    -fx-background-image: null;
+}
+
+.chat-header-info-box {
+    -fx-alignment: CENTER_LEFT;
+}
+
+.message-list {
+    -fx-padding: 16px;
+}
+
+/* ScrollPane for messages */
+.message-scroll-pane {
+    -fx-background-color: transparent; /* Make scroll pane background transparent */
+}
+
+/* Scrollbar Styling */
+.message-scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px; /* Make scrollbar thinner */
+}
+
+.message-scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent thumb */
+    -fx-background-insets: 0;
+    -fx-background-radius: 4;
+}
+
+.message-scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.message-scroll-pane .scroll-bar:vertical .increment-button,
+.message-scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+}
+
+.message-scroll-pane .scroll-bar:vertical .increment-arrow,
+.message-scroll-pane .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 0;
+}
+
+.input-area {
+    -fx-background-color: -fx-chat-header-bg;
+    -fx-padding: 8 16;
+    -fx-border-color: derive(-fx-chat-header-bg, -10%); /* Slightly darker border */
+    -fx-border-width: 1px 0 0 0;
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 8;
+}
+
+.message-input {
+    -fx-background-color: derive(-fx-sidebar-bg, -3%); /* Light grey background */
+    -fx-background-radius: 20; /* Make it more rounded */
+    -fx-padding: 8 16;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: -fx-grey-color;
+    -fx-text-fill: -fx-text-color;
+    -fx-min-height: 40px; /* Ensure minimum height */
+}
+
+.send-button {
+    -fx-background-color: -fx-primary; /* Telegram blue background */
+    -fx-background-radius: 20; /* Make it circular/rounded */
+    -fx-text-fill: white;
+    -fx-font-size: 14px; /* Adjust font size */
+    -fx-padding: 8 16; /* Adjust padding */
+    -fx-min-width: 40px; /* Ensure minimum size for circular */
+    -fx-min-height: 40px;
+    -fx-alignment: center;
+}
+
+/* Message Bubble Styling */
+.message-bubble {
+    -fx-padding: 2 0;
+}
+
+.message-box {
+    -fx-max-width: 70%;
+    /* Align message box within the bubble based on sender */
+}
+
+.incoming .message-box {
+    -fx-alignment: TOP_LEFT;
+    -fx-padding: 0 0 0 8px; /* Space for avatar */
+}
+
+.outgoing .message-box {
+    -fx-alignment: TOP_RIGHT;
+    -fx-padding: 0 8px 0 0; /* Space on the right */
+}
+
+.bubble-content {
+    -fx-padding: 8 12 4 12; /* Adjust padding, more space at bottom for meta */
+    -fx-background-radius: 18; /* More rounded corners */
+}
+
+.incoming .bubble-content {
+    -fx-background-color: white;
+    -fx-background-radius: 18 18 18 6; /* Rounded corners, sharp bottom-left */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2); /* Subtle shadow */
+}
+
+.outgoing .bubble-content {
+    -fx-background-color: #E1FFC7; /* Light green/blue for outgoing */
+    -fx-background-radius: 18 18 6 18; /* Rounded corners, sharp bottom-right */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2); /* Subtle shadow */
+}
+
+.bubble-text {
+    -fx-text-fill: -fx-chat-bubble-in-text;
+    -fx-font-size: 14px;
+    -fx-fill: -fx-text-color; /* Use -fx-fill for Text nodes */
+    -fx-font-weight: normal;
+}
+
+.outgoing .bubble-text {
+    -fx-text-fill: -fx-chat-bubble-out-text;
+    -fx-fill: -fx-text-color;
+}
+
+.bubble-emoji {
+     -fx-font-size: 28px;
+     -fx-fill: black; /* Emoji color */
+}
+
+.bubble-avatar {
+    -fx-shape: "M 18 0 A 18 18 0 0 1 18 36 A 18 18 0 0 1 18 0 Z"; /* Circular shape */
+    -fx-background-color: #a0a0a0; /* Default grey background */
+    -fx-background-image: null;
+}
+
+.bubble-meta {
+    -fx-alignment: BOTTOM_RIGHT;
+    -fx-spacing: 4; /* Space between timestamp and read receipt */
+    -fx-padding: 4 0 0 0; /* Space above meta info */
+}
+
+.message-timestamp {
+    -fx-text-fill: -fx-grey-color;
+    -fx-font-size: 10px;
+    -fx-padding: 0;
+    -fx-translate-y: 1px; /* Fine tune alignment with read receipt */
+}
+
+.read-receipt {
+    -fx-text-fill: derive(-fx-grey-color, 20%); /* Lighter grey for read receipt */
+    -fx-font-size: 10px; /* Smaller font size */
+    -fx-padding: 0;
+}
+
+.read-receipt.sent {
+    -fx-text-fill: -fx-grey-color;
+}
+
+.read-receipt.read {
+    -fx-text-fill: #4FC3F7; /* Light blue for read checkmarks */
+}
+
+.bubble-forwarded-from {
+    -fx-background-color: derive(white, -5%); /* Slightly grey background */
+    -fx-border-color: -fx-primary;
+    -fx-border-width: 0 0 0 3px; /* Blue line on the left */
+    -fx-padding: 4 8;
+    -fx-background-radius: 4;
+}
+
+.bubble-forwarded-label {
+    -fx-text-fill: -fx-text-color;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.bubble-reply-preview {
+    -fx-background-color: derive(white, -5%);
+    -fx-border-color: #B0BEC5; /* Grey line on the left */
+    -fx-border-width: 0 0 0 3px;
+    -fx-padding: 4 8;
+    -fx-background-radius: 4;
+}
+
+.bubble-reply-label {
+    -fx-text-fill: -fx-text-color;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+}
+
+.bubble-file {
+    -fx-background-color: derive(white, -5%);
+    -fx-padding: 8;
+    -fx-background-radius: 8;
+}
+
+.bubble-file-name {
+    -fx-text-fill: -fx-primary; /* Blue file name */
+    -fx-font-weight: bold;
+}
+
+.bubble-file-size {
+    -fx-font-size: 11px;
+    -fx-text-fill: -fx-grey-color;
+}
+
+.bubble-voice {
+    -fx-background-color: derive(white, -5%);
+    -fx-padding: 8;
+    -fx-background-radius: 8;
+}
+
+.bubble-voice-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: -fx-text-color;
+}
+
+.bubble-image {
+    -fx-background-radius: 12; /* More rounded corners for images */
+    -fx-background-color: #f0f0f0; /* Placeholder background */
+    -fx-padding: 0;
+}
+
+.bubble-reactions {
+    -fx-background-color: white;
+    -fx-background-radius: 16; /* Rounded pill shape */
+    -fx-padding: 4 8; /* Adjust padding */
+    -fx-spacing: 4; /* Space between reactions */
+    -fx-alignment: CENTER;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 1); /* Subtle shadow */
+    -fx-translate-y: 8px; /* Position below the bubble */
+}
+
+.bubble-reaction-item {
+    -fx-text-fill: #222; /* Dark text color for reactions */
+    -fx-font-size: 11px; /* Adjust font size */
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.date-separator {
+    -fx-background-color: -fx-date-separator-bg;
+    -fx-background-radius: 8;
+    -fx-padding: 4 8;
+    -fx-text-fill: -fx-text-color;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER;
+    -fx-pref-width: 150px;
+    -fx-max-width: 200px;
+    -fx-translate-y: -10px;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+/* Ensure date separator is centered */
+.message-list > .date-separator {
+    -fx-hgrow: never;
+    -fx-vgrow: never;
+}
+
+.welcome-view {
+    -fx-background-color: -fx-dark-bg;
+    -fx-padding: 0;
+}
+.welcome-title {
+    -fx-text-fill: #222;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+.welcome-subtitle {
+    -fx-text-fill: #7D8B99;
+    -fx-font-size: 16px;
+}
+.welcome-start-btn {
+    -fx-background-color: -fx-primary; /* WhatsApp green background */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10 32;
+}
+
+.bubble-forwarded {
+    -fx-text-fill: -fx-primary;
+}
+.bubble-reply-box {
+    -fx-background-color: #e6f2fa;
+    -fx-background-radius: 5;
+    -fx-padding: 4 8;
+}
+.bubble-reply-line {
+    -fx-fill: -fx-primary;
+}
+.bubble-reply-text {
+    -fx-text-fill: #7D8B99;
+}
+.bubble-file-box {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+}
+.bubble-file-name {
+    -fx-text-fill: #222;
+}
+.bubble-file-size {
+    -fx-text-fill: #7D8B99;
+}
+.bubble-voice-box {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+}
+.bubble-voice-label {
+    -fx-text-fill: #222;
+}
+.bubble-reaction-row {}
+.bubble-reaction {
+    -fx-background-color: #e6f2fa;
+    -fx-background-radius: 8;
+    -fx-padding: 2 6;
+    -fx-text-fill: #222;
+}
+.bubble-image {
+    -fx-background-radius: 8;
+}
+
+.sidebar-action-btn {
+    -fx-background-color: transparent;
+    -fx-font-size: 18px;
+    -fx-text-fill: #7D8B99;
+    -fx-cursor: hand;
+}
+
+.right-sidebar {
+    -fx-background-color: #fff;
+    -fx-padding: 32px 24px;
+    -fx-effect: dropshadow(gaussian, #00000022, 8, 0.2, -4, 0);
+    -fx-border-radius: 16 0 0 16;
+    -fx-background-radius: 16 0 0 16;
+    -fx-min-width: 320px;
+    -fx-max-width: 400px;
+}
+.right-sidebar-title {
+    -fx-text-fill: #222;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 24px 0;
+}
+
+/* Group avatar styling */
+.group-avatar {
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+.group-avatar .text {
+    -fx-font-family: "Segoe UI Emoji";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-fill: black; /* Ensure emoji is visible */
+}
+
+/* Add a subtle shadow to make the group avatar pop */
+.group-avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+}
+
+.chat-list-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-color;
+}
+
+.message-sender {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #666666;
+    -fx-padding: 0 0 2 0;
+}
+
+.header-button {
+    -fx-background-color: transparent;
+    -fx-padding: 4px;
+    -fx-cursor: hand;
+}
+
+.header-button:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 4px;
+}
+
+.input-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #54656f;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+    -fx-padding: 8px;
+}
+
+.input-button:hover {
+    -fx-background-color: #e9edef;
+    -fx-background-radius: 50%;
+}
+
+.input-button.recording {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-background-radius: 50%;
+}
+
+.search-field {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #999;
+}
+
+.close-search-button {
+    -fx-background-color: transparent;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 4px 8px;
+    -fx-cursor: hand;
+}
+
+.close-search-button:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 4px;
+}
+
+.file-message {
+    -fx-background-color: #e3f2fd;
+    -fx-padding: 8px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: #bbdefb;
+    -fx-border-width: 1px;
+}
+
+.file-message:hover {
+    -fx-background-color: #bbdefb;
+    -fx-cursor: hand;
+}
+
+.welcome-logo {
+    -fx-fill: #25D366; /* WhatsApp Green */
+    -fx-effect: dropshadow(gaussian, rgba(37, 211, 102, 0.3), 10, 0, 0, 2);
+} 
