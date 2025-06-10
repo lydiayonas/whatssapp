@@ -370,8 +370,8 @@
 
 /* Ensure text wraps within bubble */
 .bubble-text-flow {
-    -fx-pref-width: Region.USE_COMPUTED_SIZE;
-    -fx-min-width: Region.USE_PREF_SIZE;
+    -fx-pref-width: auto;
+    -fx-min-width: -fx-pref-width;
     -fx-max-width: 330; /* Slightly less than bubble max-width */
 }
 

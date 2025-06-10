@@ -253,10 +253,10 @@ public class ChatArea extends VBox {
         chatHeader.setAlignment(Pos.CENTER_LEFT);
 
         // Current chat avatar
-        ImageView chatAvatar = new ImageView(new Image(getClass().getResourceAsStream("/com/chat/ui/avatar_placeholder.png")));
-        chatAvatar.setFitWidth(40);
-        chatAvatar.setFitHeight(40);
-        chatAvatar.getStyleClass().add("chat-header-avatar");
+        chatHeaderAvatar = new ImageView(new Image(getClass().getResourceAsStream("/com/chat/ui/avatar_placeholder.png")));
+        chatHeaderAvatar.setFitWidth(40);
+        chatHeaderAvatar.setFitHeight(40);
+        chatHeaderAvatar.getStyleClass().add("chat-header-avatar");
 
         // Chat name and status
         VBox chatInfo = new VBox(2);
@@ -267,7 +267,7 @@ public class ChatArea extends VBox {
         chatHeaderStatus.getStyleClass().add("chat-header-status");
         chatInfo.getChildren().addAll(chatHeaderName, chatHeaderStatus);
 
-        chatHeader.getChildren().addAll(chatAvatar, chatInfo);
+        chatHeader.getChildren().addAll(chatHeaderAvatar, chatInfo);
         HBox.setHgrow(chatInfo, Priority.ALWAYS);
 
         // Search button
@@ -282,7 +282,27 @@ public class ChatArea extends VBox {
             System.out.println("Search button clicked!");
         });
 
-        chatHeader.getChildren().add(searchButton);
+        // More options button with context menu
+        Button moreButton = new Button("⋯");
+        moreButton.getStyleClass().add("icon-button");
+        ContextMenu headerMenu = new ContextMenu();
+
+        MenuItem searchMenuItem = new MenuItem("Search");
+        searchMenuItem.setOnAction(e -> {
+            // Re-implement search functionality when menu item is clicked
+            System.out.println("Search menu item clicked!");
+        });
+
+        MenuItem clearHistoryItem = new MenuItem("Clear History");
+        clearHistoryItem.setOnAction(e -> clearCurrentChatHistory());
+
+        MenuItem deleteChatItem = new MenuItem("Delete chat");
+        deleteChatItem.setOnAction(e -> deleteCurrentChat());
+
+        headerMenu.getItems().addAll(searchMenuItem, clearHistoryItem, deleteChatItem);
+        moreButton.setOnMouseClicked(e -> headerMenu.show(moreButton, e.getScreenX(), e.getScreenY()));
+
+        chatHeader.getChildren().addAll(searchButton, moreButton);
 
         return chatHeader;
     }
