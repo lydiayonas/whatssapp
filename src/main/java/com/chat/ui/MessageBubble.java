@@ -176,8 +176,8 @@ public class MessageBubble extends HBox {
                     fileDisplay.setAlignment(Pos.CENTER_LEFT);
                     fileDisplay.getStyleClass().add("bubble-file-display");
 
-                    // Assuming a file_icon.png exists in /com/chat/ui/icons/
-                    ImageView fileIcon = new ImageView(new Image(getClass().getResourceAsStream("/com/chat/ui/icons/file_icon.png")));
+                    // Corrected path for file_icon.png
+                    ImageView fileIcon = new ImageView(new Image(getClass().getResourceAsStream("/com/chat/ui/file_icon.png")));
                     fileIcon.setFitWidth(24);
                     fileIcon.setFitHeight(24);
 

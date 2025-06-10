@@ -141,6 +141,13 @@ public class ChatArea extends VBox {
         messageScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         messageScrollPane.getStyleClass().add("message-scroll-pane");
 
+        // Set background image for the message scroll pane
+        Image backgroundImage = new Image(getClass().getResourceAsStream("/com/chat/ui/background.png"));
+        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, false);
+        BackgroundImage chatBackground = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, backgroundSize);
+        Background background = new Background(chatBackground);
+        messageScrollPane.setBackground(background);
+
         messageList = new VBox(8);
         messageList.getStyleClass().add("message-list");
         messageScrollPane.setContent(messageList);
@@ -236,7 +243,8 @@ public class ChatArea extends VBox {
     private void setupEventHandlers() {
         sendButton.setOnAction(e -> sendMessage());
         messageInput.setOnAction(e -> sendMessage());
-        emojiButton.setOnAction(e -> handleEmojiMessage());
+        // attachmentButton.setOnAction(e -> handleAttachment()); // Removed as attachment is now handled by icon
+        // Removed emojiButton.setOnAction(e -> handleEmojiMessage()); as emoji button is no longer a separate element
     }
 
     private HBox createChatHeader() {
@@ -309,7 +317,7 @@ public class ChatArea extends VBox {
         // Adjust padding to make space for the attachment icon
         messageInput.setPadding(new Insets(10, 10, 10, 40)); // Top, Right, Bottom, Left
 
-        ImageView attachmentIcon = new ImageView(new Image(getClass().getResourceAsStream("/com/chat/ui/icons/attachment_icon.png"))); // Assuming this icon exists
+        ImageView attachmentIcon = new ImageView(new Image(getClass().getResourceAsStream("/com/chat/ui/attachment_icon.png"))); // Corrected path
         attachmentIcon.setFitWidth(20);
         attachmentIcon.setFitHeight(20);
         attachmentIcon.getStyleClass().add("attachment-icon");
@@ -427,7 +435,7 @@ public class ChatArea extends VBox {
                 javafx.application.Platform.runLater(() -> {
                     if (currentChat != null) {
                         MockMessage response = new MockMessage(
-                            new User(2, "Bot", "/com/chat/ui/icons/default_avatar.png", true),
+                            new User(2, "Bot", "/com/chat/ui/bot_avatar.png", true), // Corrected path
                             "This is an automated response",
                             LocalDateTime.now(),
                             MessageType.TEXT

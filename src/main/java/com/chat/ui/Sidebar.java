@@ -326,7 +326,7 @@ public class Sidebar extends VBox {
                         // Create a new ChatItemData for the new chat
                         ChatItemData newChat = new ChatItemData(
                             newChatUsername,
-                            "/com/chat/ui/icons/default_avatar.png", // Default avatar
+                            "/com/chat/ui/default_avatar.png", // Corrected default avatar path
                             false, // Not pinned
                             0,     // No unread messages
                             new ArrayList<MockMessage>(), // Empty message list
@@ -339,7 +339,7 @@ public class Sidebar extends VBox {
                             newChat.getMembers().add(currentUser);
                         }
                         // Add the new contact to the chat members
-                        newChat.getMembers().add(new User(0, newChatUsername, "/com/chat/ui/icons/default_avatar.png", false)); // Assuming user ID 0 for simplicity
+                        newChat.getMembers().add(new User(0, newChatUsername, "/com/chat/ui/default_avatar.png", false)); // Corrected default avatar path
 
                         chatListData.add(0, newChat); // Add to the top of the list
                         setSelectedChat(newChat); // Select the new chat
@@ -446,7 +446,7 @@ public class Sidebar extends VBox {
                 // Create a new ChatItemData for the group chat
                 ChatItemData newGroupChat = new ChatItemData(
                     groupName,
-                    "/com/chat/ui/icons/default_avatar.png", // Default avatar for groups
+                    "/com/chat/ui/default_avatar.png", // Corrected default avatar for groups
                     false, // Not pinned
                     0,     // No unread messages
                     new ArrayList<MockMessage>(), // Empty message list

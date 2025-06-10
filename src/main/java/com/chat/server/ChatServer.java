@@ -163,13 +163,4 @@ public class ChatServer {
             }
         }
     }
-
-    public static void main(String[] args) {
-        try {
-            ChatServer server = new ChatServer();
-            server.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 } 
