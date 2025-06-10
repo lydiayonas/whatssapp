@@ -59,7 +59,6 @@ public class ChatArea extends VBox {
 
     @FXML private TextField messageInput;
     @FXML private Button sendButton;
-    @FXML private Button attachmentButton;
     @FXML private Button emojiButton;
     
     private MainView mainView;
@@ -237,7 +236,7 @@ public class ChatArea extends VBox {
     private void setupEventHandlers() {
         sendButton.setOnAction(e -> sendMessage());
         messageInput.setOnAction(e -> sendMessage());
-        attachmentButton.setOnAction(e -> handleAttachment());
+        emojiButton.setOnAction(e -> handleEmojiMessage());
     }
 
     private HBox createChatHeader() {
@@ -299,16 +298,27 @@ public class ChatArea extends VBox {
         inputArea.setAlignment(Pos.CENTER);
         inputArea.setPadding(new Insets(8));
 
-        // Attachment button (📎) - Keep as a separate button for now, positioned to the left
-        attachmentButton = new Button("📎");
-        attachmentButton.getStyleClass().add("input-button");
-        attachmentButton.setOnAction(e -> showFileChooser());
+        // Message input field with integrated attachment icon
+        StackPane messageInputContainer = new StackPane();
+        messageInputContainer.getStyleClass().add("message-input-container");
+        HBox.setHgrow(messageInputContainer, Priority.ALWAYS);
 
-        // Message input field
         messageInput = new TextField();
         messageInput.setPromptText("Message");
         messageInput.getStyleClass().add("message-input");
-        HBox.setHgrow(messageInput, Priority.ALWAYS);
+        // Adjust padding to make space for the attachment icon
+        messageInput.setPadding(new Insets(10, 10, 10, 40)); // Top, Right, Bottom, Left
+
+        ImageView attachmentIcon = new ImageView(new Image(getClass().getResourceAsStream("/com/chat/ui/icons/attachment_icon.png"))); // Assuming this icon exists
+        attachmentIcon.setFitWidth(20);
+        attachmentIcon.setFitHeight(20);
+        attachmentIcon.getStyleClass().add("attachment-icon");
+        StackPane.setAlignment(attachmentIcon, Pos.CENTER_LEFT);
+        StackPane.setMargin(attachmentIcon, new Insets(0, 0, 0, 10)); // Margin for icon
+        // Add click handler to the icon itself
+        attachmentIcon.setOnMouseClicked(e -> showFileChooser());
+
+        messageInputContainer.getChildren().addAll(messageInput, attachmentIcon);
 
         // Send button
         sendButton = new Button("➤");
@@ -339,7 +349,7 @@ public class ChatArea extends VBox {
 
         // Arrange components in the input area
         inputArea.getChildren().clear(); // Clear existing children to re-add in desired order
-        inputArea.getChildren().addAll(attachmentButton, messageInput, rightMostButtonStack);
+        inputArea.getChildren().addAll(messageInputContainer, rightMostButtonStack);
 
         return inputArea;
     }
@@ -727,7 +737,6 @@ public class ChatArea extends VBox {
                     fileExtension
                 );
                 addMessage(attachmentMessage);
-                sendMessage(); // Send the attachment as a message
             } catch (IOException e) {
                 showAlert("Error", "Could not read file: " + e.getMessage());
                 e.printStackTrace();
@@ -804,48 +813,6 @@ public class ChatArea extends VBox {
             emptyStateContainer.setManaged(true);
             chatContentPane.setVisible(false);
             chatContentPane.setManaged(false);
-        }
-    }
-
-    private void handleAttachment() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select File");
-        File selectedFile = fileChooser.showOpenDialog(getScene().getWindow());
-
-        if (selectedFile != null) {
-            try {
-                byte[] fileContent = Files.readAllBytes(selectedFile.toPath());
-                String fileName = selectedFile.getName();
-                String fileExtension = "";
-                int dotIndex = fileName.lastIndexOf('.');
-                if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
-                    fileExtension = fileName.substring(dotIndex + 1).toLowerCase();
-                }
-
-                MessageType messageType;
-                // Determine if it's an image based on common image extensions
-                if (fileExtension.equals("jpg") || fileExtension.equals("jpeg") || fileExtension.equals("png") || fileExtension.equals("gif")) {
-                    messageType = MessageType.IMAGE;
-                } else {
-                    messageType = MessageType.FILE;
-                }
-                
-                // Create MockMessage with file content and type
-                MockMessage attachmentMessage = new MockMessage(
-                    currentUser,
-                    fileName,
-                    LocalDateTime.now(),
-                    messageType,
-                    null, null, null, true, false, // replyPreview, forwardedFrom, reactions, isSent, isRead
-                    fileContent,
-                    fileExtension
-                );
-                addMessage(attachmentMessage);
-                sendMessage(); // Send the attachment as a message
-            } catch (IOException e) {
-                showAlert("Error", "Could not read file: " + e.getMessage());
-                e.printStackTrace();
-            }
         }
     }
 
